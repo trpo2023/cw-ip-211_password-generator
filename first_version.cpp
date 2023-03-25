@@ -52,15 +52,16 @@ void generate(char **password, int length, int counting)
 // password output function
 void print(char **password, int length, int counting)
 {
-    printf("\nYour passwords:\n\n");
+    printf("\nYour password(s):\n\n");
 
     for (int i = 0; i < counting; i++)
     {
+        printf("%2d. ", i + 1);
         for (int j = 0; j < length; j++)
         {
-            printf("%c ", password[i][j]);
+            printf("%c", password[i][j]);
         }
-        printf("\n-----------\n");
+        puts("\n");
     }
 }
 
@@ -69,36 +70,60 @@ int main()
     srand(time(NULL));
 
     // Variable length and number of passwords
-    int length, counting;
+    int pass_length, pass_amount;
 
     printf("\nGreetings. This is a password generator.");
-    printf("\nPlease enter password length: ");
-    scanf("%d", &length);
-    printf("Enter number of passwords: ");
-    scanf("%d", &counting);
+    printf("\nEnter password length (4 - 32): ");
+    scanf("%d", &pass_length);
+    printf("Enter number of passwords to be shown (1 - 16): ");
+    scanf("%d", &pass_amount);
+
+    // checking for correctly entered data
+
+    // lower limit of the password length
+    if (pass_length < 4)
+    {
+        pass_length = 4;
+    }
+    // upper limit of the password length
+    if (pass_length > 32)
+    {
+        pass_length = 32;
+    }
+    // lower limit of the password amount
+    if (pass_amount < 1)
+    {
+        pass_amount = 1;
+    }
+    // upper limit of the password amount
+    if (pass_amount > 16)
+    {
+        pass_amount = 16;
+    }
 
     // creating a multidimensional dynamic array for storing passwords
-    char **password = (char **)malloc(counting * sizeof(char *));
+    char **password = (char **)malloc(pass_amount * sizeof(char *));
     if (password == NULL)
     {
         return 1;
     }
-    for (int i = 0; i < counting; i++)
+    for (int i = 0; i < pass_amount; i++)
     {
-        password[i] = (char *)malloc(length * sizeof(char));
+        password[i] = (char *)malloc(pass_length * sizeof(char));
     }
 
     // password generation function (so far in random form)
-    generate(password, length, counting);
+    generate(password, pass_length, pass_amount);
 
     // password output function
-    print(password, length, counting);
+    print(password, pass_length, pass_amount);
 
     // freeing up the password array memory
-    for (int i = 0; i < counting; i++)
+    for (int i = 0; i < pass_amount; i++)
     {
         free(password[i]);
     }
     free(password);
+
     return 0;
 }
