@@ -73,7 +73,9 @@ void generate_capital_letter(char **password, int *i, int *j)
 // function to add special characters into the password
 void generate_special_character(char **password, int *i, int *j)
 {
-    password[*i][*j] = '!' + rand() % 10;
+    // array with special characters for password
+    char special_characters[] = {'!', '@', '#', '$', '%', '&', '_', '-', '*'};
+    password[*i][*j] = special_characters[rand() % 8];
 }
 
 // password generation function
@@ -85,19 +87,19 @@ void generate_password(char **password, int length, int counting, int *character
         for (int j = 0; j < length; j++)
         {
             // picking random element out of character_variants_array
-            r_elem = character_variants_array[rand() % character_variants_count] - 1;
+            r_elem = character_variants_array[rand() % character_variants_count];
             switch (r_elem)
             {
-            case 0:
+            case 1:
                 generate_number(password, &i, &j);
                 break;
-            case 1:
+            case 2:
                 generate_lowercase_letter(password, &i, &j);
                 break;
-            case 2:
+            case 3:
                 generate_capital_letter(password, &i, &j);
                 break;
-            case 3:
+            case 4:
                 generate_special_character(password, &i, &j);
                 break;
             }
@@ -153,6 +155,23 @@ void print(char **password, int length, int counting)
     }
 }
 
+void add_memory(char **password, int &pass_amount, int &pass_length)
+{
+    for (int i = 0; i < pass_amount; i++)
+    {
+        password[i] = new char[pass_length];
+    }
+}
+
+void clear(char **password, int &pass_amount)
+{
+    for (int i = 0; i < pass_amount; i++)
+    {
+        free(password[i]);
+    }
+    free(password);
+}
+
 int main()
 {
     srand(time(NULL));
@@ -165,6 +184,7 @@ int main()
     int add_numbers, add_lowercase_letters, add_capital_letters, add_special_characters;
     // array with character variants in the password
     int *character_variants_array = new int[character_variants_count];
+
     /*
     values in the array:
     1 = include numbers;
@@ -183,10 +203,7 @@ int main()
     {
         return 1;
     }
-    for (int i = 0; i < pass_amount; i++)
-    {
-        password[i] = (char *)malloc(pass_length * sizeof(char));
-    }
+    add_memory(password, pass_amount, pass_length);
 
     generate_password(password, pass_length, pass_amount, character_variants_array, character_variants_count);
     print(password, pass_length, pass_amount);
@@ -195,11 +212,7 @@ int main()
     free(character_variants_array);
 
     // freeing up the password array memory
-    for (int i = 0; i < pass_amount; i++)
-    {
-        free(password[i]);
-    }
-    free(password);
+    clear(password, pass_amount);
 
     return 0;
 }
