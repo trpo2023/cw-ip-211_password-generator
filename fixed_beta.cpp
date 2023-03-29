@@ -3,6 +3,11 @@
 #include <time.h>
 #include <string.h>
 
+#define low_length 4
+#define up_length 32
+#define low_amount 1
+#define up_amount 16
+
 // selection of options for password generation
 void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *add_lowercase_letters, int *add_capital_letters, int *add_special_characters)
 {
@@ -31,43 +36,31 @@ void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *ad
 void check(int &pass_length, int &pass_amount)
 {
     // lower limit of the password length
-    if (pass_length < 4)
+    if (pass_length < low_length)
     {
-        pass_length = 4;
+        pass_length = low_length;
     }
     // upper limit of the password length
-    if (pass_length > 32)
+    if (pass_length > up_length)
     {
-        pass_length = 32;
+        pass_length = up_length;
     }
     // lower limit of the password amount
-    if (pass_amount < 1)
+    if (pass_amount < low_amount)
     {
-        pass_amount = 1;
+        pass_amount = low_amount;
     }
     // upper limit of the password amount
-    if (pass_amount > 16)
+    if (pass_amount > up_amount)
     {
-        pass_amount = 16;
+        pass_amount = up_amount;
     }
 }
 
-// function to add numbers into the password
-void generate_number(char **password, int *i, int *j)
+// function to symbol into the password
+void generate_symbol(char **password, int *i, int *j, char a, int l)
 {
-    password[*i][*j] = '0' + rand() % 10;
-}
-
-// function to add lowercase letters into the password
-void generate_lowercase_letter(char **password, int *i, int *j)
-{
-    password[*i][*j] = 'a' + rand() % 26;
-}
-
-// function to add capital letters into the password
-void generate_capital_letter(char **password, int *i, int *j)
-{
-    password[*i][*j] = 'A' + rand() % 26;
+    password[*i][*j] = a + rand() % l;
 }
 
 // function to add special characters into the password
@@ -91,13 +84,13 @@ void generate_password(char **password, int length, int counting, int *character
             switch (r_elem)
             {
             case 1:
-                generate_number(password, &i, &j);
+                generate_symbol(password, &i, &j, '0', 10);
                 break;
             case 2:
-                generate_lowercase_letter(password, &i, &j);
+                generate_symbol(password, &i, &j, 'a', 26);
                 break;
             case 3:
-                generate_capital_letter(password, &i, &j);
+                generate_symbol(password, &i, &j, 'A', 26);
                 break;
             case 4:
                 generate_special_character(password, &i, &j);
@@ -140,7 +133,7 @@ void fill_options_arr(int add_numbers, int add_lowercase_letters, int add_capita
 }
 
 // password output function
-void print(char **password, int length, int counting)
+void print_password(char **password, int length, int counting)
 {
     printf("\nYour password(s):\n\n");
 
@@ -206,7 +199,7 @@ int main()
     add_memory(password, pass_amount, pass_length);
 
     generate_password(password, pass_length, pass_amount, character_variants_array, character_variants_count);
-    print(password, pass_length, pass_amount);
+    print_password(password, pass_length, pass_amount);
 
     // freeing up the character_variants_arr memory
     free(character_variants_array);
