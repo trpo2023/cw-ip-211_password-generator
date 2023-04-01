@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 
 #define low_length 4
 #define up_length 32
@@ -11,13 +12,33 @@
 // selection of options for password generation
 void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *add_lowercase_letters, int *add_capital_letters, int *add_special_characters)
 {
+    // a variable for checking the input of the password length and their number
+    char pass_len[10], pass_amo[10];
     printf("\nGreetings. This is a password generator.\n");
     printf("----------------------------------");
     printf("\nEnter password length (4 - 32): ");
-    scanf("%d", &*pass_length);
+    scanf("%s", pass_len);
+    // checking the entered value
+    if (isdigit(*pass_len) == 0)
+    {
+        *pass_length = up_length;
+    }
+    if (isdigit(*pass_len) == 1)
+    {
+        *pass_length = int(atol(pass_len));
+    }
     printf("----------------------------------\n");
     printf("Enter number of passwords to be shown (1 - 16): ");
-    scanf("%d", &*pass_amount);
+    scanf("%s", pass_amo);
+    // checking the entered value
+    if (isdigit(*pass_amo) == 0)
+    {
+        *pass_amount = up_amount;
+    }
+    if (isdigit(*pass_amo) == 1)
+    {
+        *pass_amount = int(atol(pass_amo));
+    }
     printf("----------------------------------\n");
     printf("Choose which characters to include in the password\n");
     printf("Enter '1' to include symbols\n");
