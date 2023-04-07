@@ -43,8 +43,8 @@ void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *ad
 
     // checking the entered value
     while(check_input(pass_len, pass_length)==1) {
-        printf("----------------------------------");
-        printf("\nEnter password length (4 - 32): ");
+        printf("----------------------------------"); 
+        printf("\nEnter password length (4 - 32): "); 
         // writing a string with spaces to a char type variable
         cin.getline(pass_len, max_length);
     }
