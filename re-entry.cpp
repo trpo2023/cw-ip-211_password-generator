@@ -14,10 +14,10 @@ using namespace std;
 #define up_amount 16
 
 // the function of checking the entered values and correcting them otherwise
-int length_amount_input(char word[], char *type, char *range)
+int data_input(char word[], const char *type)
 {
     printf("----------------------------------");
-    printf("\nEnter %s %s: ", type, range);
+    printf("\n%s", type);
 
     // writing a string with spaces to a char type variable
     cin.getline(word, max_length);
@@ -27,7 +27,7 @@ int length_amount_input(char word[], char *type, char *range)
         // error message and re-enrty
         printf("\nIncorrect data entered! Try again.\n");
         printf("----------------------------------");
-        printf("\nEnter %s %s: ", type, range);
+        printf("\n%s", type);
         // writing a string with spaces to a char type variable
         cin.getline(word, max_length);
     }
@@ -73,21 +73,21 @@ void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *ad
     char pass_len[max_length], pass_amo[max_length], numbers[max_length], low_letters[max_length], capital_letters[max_length], special[max_length];
     printf("\nGreetings. This is a password generator.\n");
 
-    *pass_length = length_amount_input(pass_len, "password length", "(4 - 32)");
+    *pass_length = data_input(pass_len, "Enter password length (4 - 32):");
 
-    *pass_amount = length_amount_input(pass_amo, "number of passwords to be shown", "(1 - 16)");
+    *pass_amount = data_input(pass_amo, "Enter number of passwords to be shown (1 - 16):");
 
     printf("----------------------------------\n");
     printf("Choose which characters to include in the password\n");
     printf("Enter '1' to include symbols\n");
 
-    *add_numbers = variants_input(numbers, "numbers");
+    *add_numbers = data_input(numbers, "Add numbers to password generation? (1/0)");
 
-    *add_lowercase_letters = variants_input(low_letters, "lowercase letters");
+    *add_lowercase_letters = data_input(low_letters, "Add lowercase letters to password generation? (1/0)");
 
-    *add_capital_letters = variants_input(capital_letters, "capital letters");
+    *add_capital_letters = data_input(capital_letters, "Add capital letters to password generation? (1/0)");
 
-    *add_special_characters = variants_input(special, "special characters");
+    *add_special_characters = data_input(special, "Add special characters to password generation? (1/0)");
 }
 // function for checking input values
 void check(int &pass_length, int &pass_amount)
