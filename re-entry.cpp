@@ -9,6 +9,7 @@
 
 #define MAX_LENGTH 100
 
+// checking the entered data
 int data_check(char word[], int range_min, int range_max);
 
 // data entry
@@ -40,24 +41,15 @@ int data_check(char word[], int range_min, int range_max)
         // error without message
         return 1;
     }
-
-    for (int i = 0; i < strlen(word); i++)
+    // if word is not empty and not a positive number
+    for (int i = 0; i < int(strlen(word)); i++)
     {
         if (isdigit(word[i]) == 0)
         {
-            printf("\nEntered data is not a number! Try again.\n");
+            printf("\nEntered data is not a positive number! Try again.\n");
             // error
             return 2;
         }
-    }
-
-    // if word is not empty and not a positive number
-    if (isdigit(*word) == 0 && word != NULL)
-    {
-        // print error message
-        printf("\nEntered data is not a positive number! Try again.\n");
-        // error
-        return 2;
     }
     // if word is digit and is in range
     if (isdigit(*word) == 1 && int(atol(word)) >= range_min && int(atol(word)) <= range_max)
@@ -95,18 +87,11 @@ void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *ad
     *add_special_characters = data_input(special, "Add special characters to password generation? (1/0)", 0, 1);
 }
 
-// function to symbol into the password
-void generate_symbol(char **password, int *i, int *j, char letter, int size)
+// function to add symbols into the password
+void generate_symbol(char **password, int *i, int *j, const char *str)
 {
-    password[*i][*j] = letter + rand() % size;
-}
-
-// function to add special characters into the password
-void generate_special_character(char **password, int *i, int *j)
-{
-    // array with special characters for password
-    char special_characters[] = {'!', '@', '#', '$', '%', '&', '_', '-', '*'};
-    password[*i][*j] = special_characters[rand() % 8];
+    int range = strlen(str) - 1;
+    password[*i][*j] = str[rand() % range];
 }
 
 // password generation function
@@ -122,16 +107,20 @@ void generate_password(char **password, int length, int counting, int *character
             switch (r_elem)
             {
             case 1:
-                generate_symbol(password, &i, &j, '0', 10);
+                // generate number
+                generate_symbol(password, &i, &j, "0123456789");
                 break;
             case 2:
-                generate_symbol(password, &i, &j, 'a', 26);
+                // generate lowercase letter
+                generate_symbol(password, &i, &j, "abcdefghijklmnopqrstuvwxyz");
                 break;
             case 3:
-                generate_symbol(password, &i, &j, 'A', 26);
+                // generate capital letter
+                generate_symbol(password, &i, &j, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
                 break;
             case 4:
-                generate_special_character(password, &i, &j);
+                // generate special character
+                generate_symbol(password, &i, &j, "!@#$%&_-*");
                 break;
             }
         }
