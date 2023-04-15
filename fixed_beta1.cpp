@@ -14,16 +14,24 @@ using namespace std;
 #define up_amount 16
 
 // the function of checking the entered values and correcting them otherwise
-void check_input(char word[], int *m, int value)
+int check_input(char word[], int *m)
 {
-    if (isdigit(*word) == 0)
+    int t = 1; 
+    // there should be a check that the *word is not empty and is not a number
+    // but it doesn't work
+    // so it just display re-entry without error warning
+    if (isdigit(*word) == 0 && isdigit(*word) != NULL)
     {
-        *m = value;
+        printf("----------------------------------");
+        printf("\nError! Please enter a number.\n");
+        t = 1;
     }
     if (isdigit(*word) == 1)
     {
         *m = int(atol(word));
+        t = 0;
     }
+    return t;
 }
 
 // selection of options for password generation
@@ -32,53 +40,58 @@ void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *ad
     // a variable for checking the input of the password length and their number
     char pass_len[max_length], pass_amo[max_length], numbers[max_length], low_letters[max_length], capital_letters[max_length], special[max_length];
     printf("\nGreetings. This is a password generator.\n");
-    printf("----------------------------------");
-    printf("\nEnter password length (4 - 32): ");
-
-    // writing a string with spaces to a char type variable
-    cin.getline(pass_len, max_length);
 
     // checking the entered value
-    check_input(pass_len, pass_length, up_length);
-    printf("----------------------------------\n");
-    printf("Enter number of passwords to be shown (1 - 16): ");
-
-    // writing a string with spaces to a char type variable
-    cin.getline(pass_amo, max_length);
+    while(check_input(pass_len, pass_length)==1) {
+        printf("----------------------------------"); 
+        printf("\nEnter password length (4 - 32): "); 
+        // writing a string with spaces to a char type variable
+        cin.getline(pass_len, max_length);
+    }
 
     // checking the entered value
-    check_input(pass_amo, pass_amount, up_amount);
+    while(check_input(pass_amo, pass_amount)==1) {
+        printf("----------------------------------\n");
+        printf("Enter number of passwords to be shown (1 - 16): ");
+        // writing a string with spaces to a char type variable
+        cin.getline(pass_amo, max_length);
+    }
+
     printf("----------------------------------\n");
     printf("Choose which characters to include in the password\n");
     printf("Enter '1' to include symbols\n");
-    printf("----------------------------------\n");
-    printf("Add numbers to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(numbers, max_length);
 
     // checking the entered value
-    check_input(numbers, add_numbers, 0);
-
-    printf("Add lowercase letters to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(low_letters, max_length);
-
-    // checking the entered value
-    check_input(low_letters, add_lowercase_letters, 0);
-
-    printf("Add capital letters to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(capital_letters, max_length);
+    while(check_input(numbers, add_numbers)==1) {
+        printf("----------------------------------\n");
+        printf("Add numbers to password generation? (1/0) ");
+        // writing a string with spaces to a char type variable
+        cin.getline(numbers, max_length);
+    }
 
     // checking the entered value
-    check_input(capital_letters, add_capital_letters, 0);
-
-    printf("Add special characters to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(special, max_length);
+    while(check_input(low_letters, add_lowercase_letters)==1) {
+        printf("----------------------------------\n");
+        printf("Add lowercase letters to password generation? (1/0) ");
+        // writing a string with spaces to a char type variable
+        cin.getline(low_letters, max_length);
+    }
 
     // checking the entered value
-    check_input(special, add_special_characters, 0);
+    while(check_input(capital_letters, add_capital_letters)==1) {
+        printf("----------------------------------\n");
+        printf("Add capital letters to password generation? (1/0) ");
+        // writing a string with spaces to a char type variable
+        cin.getline(capital_letters, max_length);
+    }
+
+    // checking the entered value
+    while(check_input(special, add_special_characters)==1) {
+        printf("----------------------------------\n");
+        printf("Add special characters to password generation? (1/0) ");
+        // writing a string with spaces to a char type variable
+        cin.getline(special, max_length);
+    }
 }
 
 // function for checking input values

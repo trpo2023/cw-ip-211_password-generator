@@ -5,119 +5,93 @@
 #include <ctype.h>
 #include <iostream>
 
-using namespace std;
+// using namespace std;
 
-#define max_length 1000
-#define low_length 4
-#define up_length 32
-#define low_amount 1
-#define up_amount 16
+#define MAX_LENGTH 100
 
-// the function of checking the entered values and correcting them otherwise
-void check_input(char word[], int *m, int value)
+// checking the entered data
+int data_check(char word[], int range_min, int range_max);
+
+// data entry
+int data_input(char word[], const char *type, int range_min, int range_max)
 {
-    if (isdigit(*word) == 0)
+    // flag to check the correctness of the entered data
+    int correct_data = 1;
+    // while entered data is not correct
+    while (correct_data != 0)
     {
-        *m = value;
+        // print a message of what user should enter
+        printf("----------------------------------");
+        printf("\n%s", type);
+        // user enters data
+        std::cin.getline(word, MAX_LENGTH);
+        // fill the flag via data_check function
+        correct_data = data_check(word, range_min, range_max);
     }
-    if (isdigit(*word) == 1)
+    // convert a string type into int type and return the value
+    return int(atol(word));
+}
+
+// checking the entered data
+int data_check(char word[], int range_min, int range_max)
+{
+    // if word is empty
+    if (word == NULL)
     {
-        *m = int(atol(word));
+        // error without message
+        return 1;
     }
+    // if word is not empty and not a positive number
+    for (int i = 0; i < int(strlen(word)); i++)
+    {
+        if (isdigit(word[i]) == 0)
+        {
+            printf("\nEntered data is not a positive number! Try again.\n");
+            // error
+            return 2;
+        }
+    }
+    // if word is digit and is in range
+    if (isdigit(*word) == 1 && int(atol(word)) >= range_min && int(atol(word)) <= range_max)
+    {
+        // correct data entered
+        return 0;
+    }
+    // if smth unpredicted happened -> print error message
+    printf("\nEntered data is not in range! Try again.\n");
+    // error
+    return 2;
 }
 
 // selection of options for password generation
 void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *add_lowercase_letters, int *add_capital_letters, int *add_special_characters)
 {
     // a variable for checking the input of the password length and their number
-    char pass_len[max_length], pass_amo[max_length], numbers[max_length], low_letters[max_length], capital_letters[max_length], special[max_length];
+    char pass_len[MAX_LENGTH], pass_amo[MAX_LENGTH], numbers[MAX_LENGTH], low_letters[MAX_LENGTH], capital_letters[MAX_LENGTH], special[MAX_LENGTH];
     printf("\nGreetings. This is a password generator.\n");
-    printf("----------------------------------");
-    printf("\nEnter password length (4 - 32): ");
 
-    // writing a string with spaces to a char type variable
-    cin.getline(pass_len, max_length);
+    *pass_length = data_input(pass_len, "Enter password length (4 - 32):", 4, 32);
 
-    // checking the entered value
-    check_input(pass_len, pass_length, up_length);
-    printf("----------------------------------\n");
-    printf("Enter number of passwords to be shown (1 - 16): ");
+    *pass_amount = data_input(pass_amo, "Enter number of passwords to be shown (1 - 16):", 1, 16);
 
-    // writing a string with spaces to a char type variable
-    cin.getline(pass_amo, max_length);
-
-    // checking the entered value
-    check_input(pass_amo, pass_amount, up_amount);
     printf("----------------------------------\n");
     printf("Choose which characters to include in the password\n");
     printf("Enter '1' to include symbols\n");
-    printf("----------------------------------\n");
-    printf("Add numbers to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(numbers, max_length);
 
-    // checking the entered value
-    check_input(numbers, add_numbers, 0);
+    *add_numbers = data_input(numbers, "Add numbers to password generation? (1/0)", 0, 1);
 
-    printf("Add lowercase letters to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(low_letters, max_length);
+    *add_lowercase_letters = data_input(low_letters, "Add lowercase letters to password generation? (1/0)", 0, 1);
 
-    // checking the entered value
-    check_input(low_letters, add_lowercase_letters, 0);
+    *add_capital_letters = data_input(capital_letters, "Add capital letters to password generation? (1/0)", 0, 1);
 
-    printf("Add capital letters to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(capital_letters, max_length);
-
-    // checking the entered value
-    check_input(capital_letters, add_capital_letters, 0);
-
-    printf("Add special characters to password generation? (1/0) ");
-    // writing a string with spaces to a char type variable
-    cin.getline(special, max_length);
-
-    // checking the entered value
-    check_input(special, add_special_characters, 0);
+    *add_special_characters = data_input(special, "Add special characters to password generation? (1/0)", 0, 1);
 }
 
-// function for checking input values
-void check(int &pass_length, int &pass_amount)
+// function to add symbols into the password
+void generate_symbol(char **password, int *i, int *j, const char *str)
 {
-    // lower limit of the password length
-    if (pass_length < low_length)
-    {
-        pass_length = low_length;
-    }
-    // upper limit of the password length
-    if (pass_length > up_length)
-    {
-        pass_length = up_length;
-    }
-    // lower limit of the password amount
-    if (pass_amount < low_amount)
-    {
-        pass_amount = low_amount;
-    }
-    // upper limit of the password amount
-    if (pass_amount > up_amount)
-    {
-        pass_amount = up_amount;
-    }
-}
-
-// function to symbol into the password
-void generate_symbol(char **password, int *i, int *j, char a, int l)
-{
-    password[*i][*j] = a + rand() % l;
-}
-
-// function to add special characters into the password
-void generate_special_character(char **password, int *i, int *j)
-{
-    // array with special characters for password
-    char special_characters[] = {'!', '@', '#', '$', '%', '&', '_', '-', '*'};
-    password[*i][*j] = special_characters[rand() % 8];
+    int range = strlen(str) - 1;
+    password[*i][*j] = str[rand() % range];
 }
 
 // password generation function
@@ -133,16 +107,20 @@ void generate_password(char **password, int length, int counting, int *character
             switch (r_elem)
             {
             case 1:
-                generate_symbol(password, &i, &j, '0', 10);
+                // generate number
+                generate_symbol(password, &i, &j, "0123456789");
                 break;
             case 2:
-                generate_symbol(password, &i, &j, 'a', 26);
+                // generate lowercase letter
+                generate_symbol(password, &i, &j, "abcdefghijklmnopqrstuvwxyz");
                 break;
             case 3:
-                generate_symbol(password, &i, &j, 'A', 26);
+                // generate capital letter
+                generate_symbol(password, &i, &j, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
                 break;
             case 4:
-                generate_special_character(password, &i, &j);
+                // generate special character
+                generate_symbol(password, &i, &j, "!@#$%&_-*");
                 break;
             }
         }
@@ -236,7 +214,6 @@ int main()
     */
 
     option_select(&pass_length, &pass_amount, &add_numbers, &add_lowercase_letters, &add_capital_letters, &add_special_characters);
-    check(pass_length, pass_amount);
     fill_options_arr(add_numbers, add_lowercase_letters, add_capital_letters, add_special_characters, character_variants_array, character_variants_count);
 
     // creating a multidimensional dynamic array for storing passwords
