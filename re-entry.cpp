@@ -40,6 +40,17 @@ int data_check(char word[], int range_min, int range_max)
         // error without message
         return 1;
     }
+
+    for (int i = 0; i < strlen(word); i++)
+    {
+        if (isdigit(word[i]) == 0)
+        {
+            printf("\nEntered data is not a number! Try again.\n");
+            // error
+            return 2;
+        }
+    }
+
     // if word is not empty and not a positive number
     if (isdigit(*word) == 0 && word != NULL)
     {
@@ -85,9 +96,9 @@ void option_select(int *pass_length, int *pass_amount, int *add_numbers, int *ad
 }
 
 // function to symbol into the password
-void generate_symbol(char **password, int *i, int *j, char a, int l)
+void generate_symbol(char **password, int *i, int *j, char letter, int size)
 {
-    password[*i][*j] = a + rand() % l;
+    password[*i][*j] = letter + rand() % size;
 }
 
 // function to add special characters into the password
