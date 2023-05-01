@@ -12,6 +12,13 @@
 // checking the entered data
 int data_check(char word[], int range_min, int range_max);
 
+// print error message
+int error_message()
+{
+    printf("\nIncorrect data entered! Try again.\n");
+    return 1;
+}
+
 // data entry
 int data_input(char word[], const char *type, int range_min, int range_max)
 {
@@ -46,9 +53,8 @@ int data_check(char word[], int range_min, int range_max)
     {
         if (isdigit(word[i]) == 0)
         {
-            printf("\nEntered data is not a positive number! Try again.\n");
             // error
-            return 2;
+            return error_message();
         }
     }
     // if word is digit and is in range
@@ -57,10 +63,8 @@ int data_check(char word[], int range_min, int range_max)
         // correct data entered
         return 0;
     }
-    // if smth unpredicted happened -> print error message
-    printf("\nEntered data is not in range! Try again.\n");
     // error
-    return 2;
+    return error_message();
 }
 
 // selection of options for password generation
