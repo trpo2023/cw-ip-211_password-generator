@@ -4,15 +4,16 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Password_Generator; }
+namespace Ui {
+class Password_Generator;
+}
 QT_END_NAMESPACE
 
-class Password_Generator : public QMainWindow
-{
+class Password_Generator : public QMainWindow {
     Q_OBJECT
 
 public:
-    Password_Generator(QWidget *parent = nullptr);
+    Password_Generator(QWidget* parent = nullptr);
     ~Password_Generator();
 
 private slots:
@@ -31,6 +32,6 @@ private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::Password_Generator *ui;
+    Ui::Password_Generator* ui;
 };
 #endif // PASSWORD_GENERATOR_H

@@ -1,17 +1,16 @@
 #include "password_generator.h"
 #include "ui_password_generator.h"
 
-Password_Generator::Password_Generator(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Password_Generator)
+Password_Generator::Password_Generator(QWidget* parent)
+    : QMainWindow(parent), ui(new Ui::Password_Generator)
 {
     ui->setupUi(this);
     ui->ListPasswords;
 
-    for(int i = 1; i<=16; i++)
+    for (int i = 1; i <= 16; i++)
         ui->number_of_pass->addItem(QString::number(i));
 
-    for(int i = 4; i<=32; i++)
+    for (int i = 4; i <= 32; i++)
         ui->length_of_pass->addItem(QString::number(i));
 }
 
@@ -40,7 +39,6 @@ void Password_Generator::on_lowercase_letters_stateChanged(int arg1)
     // adding lowercase letters
 }
 
-
 void Password_Generator::on_capital_letters_stateChanged(int arg1)
 {
     // adding capital letters
@@ -59,10 +57,10 @@ void Password_Generator::on_pushButton_clicked()
     int n = number.toInt();
     int l = length.toInt();
     QString passwords[n];
-    for(int i = 0; i<n; i++) {
-        for(int j = 0; j<l; j++) {
-            passwords[i] += QString::number(rand()%10);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < l; j++) {
+            passwords[i] += QString::number(rand() % 10);
         }
-    ui->ListPasswords->addItem(passwords[i]);
+        ui->ListPasswords->addItem(passwords[i]);
     }
 }
