@@ -6,7 +6,7 @@
 #include <time.h>
 
 #include "../Static_Libs/generate_func.h"
-#include "../Static_Libs/input_func.h"
+#include "../Static_Libs/interface.h"
 #include "../Static_Libs/output_func.h"
 
 void add_memory(char** password, int& pass_amount, int& pass_length)
