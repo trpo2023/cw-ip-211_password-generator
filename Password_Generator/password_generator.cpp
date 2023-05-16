@@ -7,16 +7,15 @@
 #include <string.h>
 #include <time.h>
 
-Password_Generator::Password_Generator(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Password_Generator)
+Password_Generator::Password_Generator(QWidget* parent)
+    : QMainWindow(parent), ui(new Ui::Password_Generator)
 {
     ui->setupUi(this);
 
-    for(int i = 1; i<=16; i++)
+    for (int i = 1; i <= 16; i++)
         ui->number_of_pass->addItem(QString::number(i));
 
-    for(int i = 4; i<=32; i++)
+    for (int i = 4; i <= 32; i++)
         ui->length_of_pass->addItem(QString::number(i));
 }
 
@@ -33,21 +32,26 @@ void Password_Generator::print_password(QString* password, int* counting)
 }
 
 // function to add symbols into the password
-void Password_Generator::generate_symbol(QString* password, int* i, const char* str)
+void Password_Generator::generate_symbol(
+        QString* password, int* i, const char* str)
 {
     int range = strlen(str) - 1;
     password[*i] += str[rand() % range];
 }
 
 // password generation function
-void Password_Generator::generate_password(QString* password, int* length, int* counting, int character_variants_array[], int* character_variants_count)
+void Password_Generator::generate_password(
+        QString* password,
+        int* length,
+        int* counting,
+        int character_variants_array[],
+        int* character_variants_count)
 {
-
     for (int i = 0; i < *counting; i++) {
         for (int j = 0; j < *length; j++) {
             // picking random element out of character_variants_array
             int r_elem = character_variants_array[rand() % 4];
-            while(r_elem == 0)
+            while (r_elem == 0)
                 r_elem = character_variants_array[rand() % 4];
             switch (r_elem) {
             case 1:
@@ -72,8 +76,10 @@ void Password_Generator::generate_password(QString* password, int* length, int* 
 }
 
 // filling in the array of options
-//void Password_Generator::fill_options_arr(int* add_numbers, int* add_lowercase_letters, int* add_capital_letters,
-//        int* add_special_characters, int character_variants_array[], int* character_variants_count)
+// void Password_Generator::fill_options_arr(int* add_numbers, int*
+// add_lowercase_letters, int* add_capital_letters,
+//        int* add_special_characters, int character_variants_array[], int*
+//        character_variants_count)
 //{
 ////    if (*add_numbers == 1) {
 ////        *character_variants_count += 1;
@@ -94,43 +100,43 @@ void Password_Generator::generate_password(QString* password, int* length, int* 
 
 //}
 
-void Password_Generator::fill_options_arr(int* add_numbers, int* add_lowercase_letters, int* add_capital_letters, int* add_special_characters, int character_variants_array[])
+void Password_Generator::fill_options_arr(
+        int* add_numbers,
+        int* add_lowercase_letters,
+        int* add_capital_letters,
+        int* add_special_characters,
+        int character_variants_array[])
 {
     int character_variants_count = 0;
     if (*add_numbers == 1) {
         character_variants_array[character_variants_count] = 1;
         character_variants_count += 1;
-    }
-    else {
+    } else {
         character_variants_array[character_variants_count] = 0;
         character_variants_count += 1;
     }
     if (*add_lowercase_letters == 1) {
-            character_variants_array[character_variants_count] = 2;
-            character_variants_count += 1;
-    }
-    else {
-            character_variants_array[character_variants_count] = 0;
-            character_variants_count += 1;
+        character_variants_array[character_variants_count] = 2;
+        character_variants_count += 1;
+    } else {
+        character_variants_array[character_variants_count] = 0;
+        character_variants_count += 1;
     }
     if (*add_capital_letters == 1) {
-            character_variants_array[character_variants_count] = 3;
-            character_variants_count += 1;
-    }
-    else {
-            character_variants_array[character_variants_count] = 0;
-            character_variants_count += 1;
+        character_variants_array[character_variants_count] = 3;
+        character_variants_count += 1;
+    } else {
+        character_variants_array[character_variants_count] = 0;
+        character_variants_count += 1;
     }
     if (*add_special_characters == 1) {
-            character_variants_array[character_variants_count] = 4;
-            character_variants_count += 1;
-    }
-    else {
-            character_variants_array[character_variants_count] = 0;
-            character_variants_count += 1;
+        character_variants_array[character_variants_count] = 4;
+        character_variants_count += 1;
+    } else {
+        character_variants_array[character_variants_count] = 0;
+        character_variants_count += 1;
     }
 }
-
 
 int Password_Generator::on_number_of_pass_activated()
 {
@@ -140,13 +146,12 @@ int Password_Generator::on_number_of_pass_activated()
     return pass_amount;
 }
 
-int Password_Generator::on_length_of_pass_activated() {
-
+int Password_Generator::on_length_of_pass_activated()
+{
     QString pl = ui->length_of_pass->currentText();
     int pass_length = pl.toInt();
 
     return pass_length;
-
 }
 
 int Password_Generator::on_numbers_stateChanged()
@@ -210,12 +215,21 @@ void Password_Generator::on_pushButton_clicked()
     int character_variants_count = 1;
     int character_variants_array[4];
 
-    fill_options_arr(&add_numbers, &add_lowercase_letters, &add_capital_letters, &add_special_characters, character_variants_array);
+    fill_options_arr(
+            &add_numbers,
+            &add_lowercase_letters,
+            &add_capital_letters,
+            &add_special_characters,
+            character_variants_array);
 
     QString passwords[pass_amount];
 
-    generate_password(passwords, &pass_length, &pass_amount, character_variants_array, &character_variants_count);
+    generate_password(
+            passwords,
+            &pass_length,
+            &pass_amount,
+            character_variants_array,
+            &character_variants_count);
 
     print_password(passwords, &pass_amount);
-
 }
