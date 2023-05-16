@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/image">
-        <file>img/froggi (2).png</file>
-        <file>img/minifrog (2).png</file>
-    </qresource>
-</RCC>
