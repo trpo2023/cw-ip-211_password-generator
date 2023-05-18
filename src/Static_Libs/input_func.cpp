@@ -21,7 +21,7 @@ int data_check(char word[], int range_min, int range_max)
         }
     }
     // if word is digit and is in range
-    if (isdigit(*word) == 1 && (int)(atol(word)) >= range_min
+    if (isdigit(*word) && (int)(atol(word)) >= range_min
         && (int)(atol(word)) <= range_max) {
         // correct data entered
         return 0;
