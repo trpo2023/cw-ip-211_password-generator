@@ -68,3 +68,4 @@ clean:
 	$(RM) $(BIN_DIR)/*.[exed]
 	$(RM) $(GRAPH_NAME)/*.dll
 	$(RM) -rf $(GRAPH_NAME)/plugins
+	$(RM) $(GRAPH_NAME)/README.md
