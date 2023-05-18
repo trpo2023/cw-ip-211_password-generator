@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../src/Static_Libs/generate_func.h"
 #include "../src/Static_Libs/input_func.cpp"
 #include "../test_header/ctest.h"
 
@@ -13,7 +12,7 @@ CTEST(input_check, check_length_correct)
     int min = 4, max = 32;
 
     int expected = 0;
-    int real = data_check(length, min, max);
+    int real = data_check(length[], min, max);
 
     ASSERT_EQUAL(expected, real);
 }
