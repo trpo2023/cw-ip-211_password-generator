@@ -21,6 +21,7 @@
 *.a
 *.la
 *.lo
+*.dll
 
 # Shared objects (inc. Windows DLLs)
 *.so
@@ -33,6 +34,8 @@
 *.i*86
 *.x86_64
 *.hex
+*.exe
+!Password_Generator.exe
 
 # Debug files
 *.dSYM/
