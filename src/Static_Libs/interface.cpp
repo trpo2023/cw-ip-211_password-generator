@@ -21,7 +21,7 @@ int data_input(char word[], const char* type, int range_min, int range_max)
         // user enters data
         std::cin.getline(word, MAX_LENGTH);
         // fill the flag via data_check function
-        correct_data = data_check(word, range_min, range_max);
+        correct_data = data_check(word, *range_min, *range_max);
         if (correct_data) {
             printf("\nIncorrect data entered! Try again.\n");
         }
