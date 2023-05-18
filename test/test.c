@@ -13,7 +13,7 @@ CTEST(input_check, check_length_correct)
     int min = 4, max = 32;
 
     int expected = 0;
-    int real = data_check(length, *min, *max);
+    int real = data_check(length, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -24,7 +24,7 @@ CTEST(input_check, check_length_incorrect_1)
     int min = 4, max = 32;
 
     int expected = 1;
-    int real = data_check(length, *min, *max);
+    int real = data_check(length, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -35,7 +35,7 @@ CTEST(input_check, check_length_incorrect_2)
     int min = 4, max = 32;
 
     int expected = 1;
-    int real = data_check(length, *min, *max);
+    int real = data_check(length, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -46,7 +46,7 @@ CTEST(input_check, check_amount_correct)
     int min = 1, max = 16;
 
     int expected = 0;
-    int real = data_check(amount, *min, *max);
+    int real = data_check(amount, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -57,7 +57,7 @@ CTEST(input_check, check_amount_incorrect_1)
     int min = 1, max = 16;
 
     int expected = 1;
-    int real = data_check(amount, *min, *max);
+    int real = data_check(amount, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -68,7 +68,7 @@ CTEST(input_check, check_amount_incorrect_2)
     int min = 1, max = 16;
 
     int expected = 1;
-    int real = data_check(amount, *min, *max);
+    int real = data_check(amount, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -79,7 +79,7 @@ CTEST(input_check, check_input_content_correct)
     int min = 0, max = 1;
 
     int expected = 0;
-    int real = data_check(add_content, *min, *max);
+    int real = data_check(add_content, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -90,7 +90,7 @@ CTEST(input_check, check_input_content_incorrect_1)
     int min = 0, max = 1;
 
     int expected = 1;
-    int real = data_check(add_content, *min, *max);
+    int real = data_check(add_content, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -101,7 +101,7 @@ CTEST(input_check, check_input_content_incorrect_2)
     int min = 0, max = 1;
 
     int expected = 1;
-    int real = data_check(add_content, *min, *max);
+    int real = data_check(add_content, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -112,7 +112,7 @@ CTEST(input_check, check_input_content_incorrect_3)
     int min = 0, max = 1;
 
     int expected = 1;
-    int real = data_check(add_content, *min, *max);
+    int real = data_check(add_content, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
@@ -123,7 +123,7 @@ CTEST(input_check, check_input_content_incorrect_4)
     int min = 0, max = 1;
 
     int expected = 1;
-    int real = data_check(add_content, *min, *max);
+    int real = data_check(add_content, min, max);
 
     ASSERT_EQUAL(expected, real);
 }
