@@ -1,0 +1,3 @@
+[submodule "Password_Generator/Libs-for-ip211-password-generator"]
+	path = Password_Generator/Libs-for-ip211-password-generator
+	url = https://github.com/leeroyjenkins123/Libs-for-ip211-password-generator
