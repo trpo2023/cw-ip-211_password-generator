@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "input_func.h"
 #include "interface.h"
 
 #define MAX_LENGTH 100
