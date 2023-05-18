@@ -54,3 +54,6 @@ dkms.conf
 
 # Trash
 *.vscode
+Password_Generator/plugins*
+Password_Generator/Q*
+Password_Generator/l*
