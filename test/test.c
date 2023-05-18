@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "../src/Static_Libs/generate_func.h"
-#include "../src/Static_Libs/input_func.h"
+#include "../src/Static_Libs/input_func.cpp"
 #include "../test_header/ctest.h"
 
 CTEST(input_check, check_length_correct)
