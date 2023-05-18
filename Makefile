@@ -76,6 +76,7 @@ graph:
 
 clean:
 	$(RM) $(APP_PATH) $(OBJ_DIR)/*/*/*.[aod]
+	$(RM) $(OBJ_DIR)/$(TEST_DIR)/*.[aod]
 	$(RM) $(BIN_DIR)/*.[exed]
 	$(RM) $(GRAPH_NAME)/*.dll
 	$(RM) -rf $(GRAPH_NAME)/plugins
