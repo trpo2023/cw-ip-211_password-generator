@@ -4,6 +4,8 @@ CPPFLAGS = -I src -MP -MMD
 
 APP_NAME = Main_Code
 LIB_NAME = Static_Libs
+GRAPH_NAME = Password_Generator
+DYNAMIC = Libs-for-ip211-password-generator
 
 BIN_DIR = bin
 OBJ_DIR = obj
@@ -44,6 +46,25 @@ run:
 
 .PHONY: clean
 
+.PHONY: download
+
+download:
+	cd $(GRAPH_NAME)
+	git submodule init
+	git submodule update
+
+.PHONY: install
+
+install:
+	cp -r $(GRAPH_NAME)/$(DYNAMIC)/*  $(GRAPH_NAME)/
+
+.PHONY: graph
+
+graph:
+	./$(GRAPH_NAME)/$(GRAPH_NAME).exe
+
 clean:
 	$(RM) $(APP_PATH) $(OBJ_DIR)/*/*/*.[aod]
 	$(RM) $(BIN_DIR)/*.[exed]
+	$(RM) $(GRAPH_NAME)/*.dll
+	$(RM) -rf $(GRAPH_NAME)/plugins
