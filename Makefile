@@ -32,7 +32,6 @@ TEST_OBJECTS = $(TEST_SOURCE:$(TEST_DIR)/%.$(S_EXT)=$(OBJ_DIR)/$(TEST_DIR)/%.o)
 
 DEPS = $(APP_OBJECTS:.o=.h) $(LIB_OBJECTS:.o=.h)
 
-.PHONY: all
 
 all: $(APP_PATH)
 
@@ -50,26 +49,14 @@ $(OBJ_DIR)/%.o: %.cpp
 $(OBJ_DIR)/%.o: %.c
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-.PHONY: run
-
 run:
 	./bin/Main_Code
-
-.PHONY: clean
-
-.PHONY: download
 
 download:
 	cd $(GRAPH_NAME)
 	git submodule init
 	git submodule update
-
-.PHONY: install
-
-install:
 	cp -r $(GRAPH_NAME)/$(DYNAMIC)/*  $(GRAPH_NAME)/
-
-.PHONY: graph
 
 graph:
 	./$(GRAPH_NAME)/$(GRAPH_NAME).exe
@@ -82,10 +69,10 @@ clean:
 	$(RM) -rf $(GRAPH_NAME)/plugins
 	$(RM) $(GRAPH_NAME)/README.md
 
-.PHONY: test
-
 test: $(TEST_PATH)
 
 $(TEST_PATH): $(TEST_OBJECTS) $(LIB_PATH)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lm
 	$(BIN_DIR)/$(TEST_NAME)
+
+.PHONY: all run download graph test clean
