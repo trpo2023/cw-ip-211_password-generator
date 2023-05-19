@@ -1,5 +1,4 @@
 CPP = g++
-CC = gcc 
 CFLAGS = -Wall -Werror
 CPPFLAGS = -I src -MP -MMD
 
@@ -19,7 +18,6 @@ LIB_PATH = $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/$(LIB_NAME).a
 TEST_PATH = $(BIN_DIR)/$(TEST_NAME)
 
 SRC_EXT = cpp
-S_EXT = c
 
 APP_SOURCES = $(shell find $(SRC_DIR)/$(APP_NAME) -name '*.$(SRC_EXT)')
 APP_OBJECTS = $(APP_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
@@ -27,8 +25,8 @@ APP_OBJECTS = $(APP_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
 LIB_SOURCES = $(shell find $(SRC_DIR)/$(LIB_NAME) -name '*.$(SRC_EXT)')
 LIB_OBJECTS = $(LIB_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
 
-TEST_SOURCE = $(shell find $(TEST_DIR) -name '*.$(S_EXT)')
-TEST_OBJECTS = $(TEST_SOURCE:$(TEST_DIR)/%.$(S_EXT)=$(OBJ_DIR)/$(TEST_DIR)/%.o)
+TEST_SOURCE = $(shell find $(TEST_DIR) -name '*.$(SRC_EXT)')
+TEST_OBJECTS = $(TEST_SOURCE:$(TEST_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(TEST_DIR)/%.o)
 
 DEPS = $(APP_OBJECTS:.o=.h) $(LIB_OBJECTS:.o=.h)
 
@@ -45,9 +43,6 @@ $(LIB_PATH): $(LIB_OBJECTS)
 
 $(OBJ_DIR)/%.o: %.cpp
 	$(CPP) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o: %.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 run:
 	./bin/Main_Code
@@ -72,7 +67,7 @@ clean:
 test: $(TEST_PATH)
 
 $(TEST_PATH): $(TEST_OBJECTS) $(LIB_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lm
+	$(CPP) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lm
 	$(BIN_DIR)/$(TEST_NAME)
 
 .PHONY: all run download graph test clean
